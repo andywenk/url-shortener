@@ -2,12 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= @title || 'URL Shortener' %></title>
+  <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-  <h1>URL Shortener</h1>
-  <div class="content">
-    <%= yield %>
+  <div class="grid-container">
+    <div class="header">
+      <h1>URL Shortener</h1>
+    </div>
+    <div class="left">
+      <h3>URL</h3>
+      The URL needs to be in a valid format like:<br />
+      www.mydomain.de<br />
+      mydomain.de<br />
+      <h3>Slug</h3>
+      The slug needs to be min 4 and max 128 characters long and conists only of lowercase characters 
+    </div>
+    <div class="middle">
+      <%= yield %>
+    </div>
+    <div class="right">
+      &nbsp;
+    </div>
+    <div class="footer">
+      <h2>Terms of service</h2>
+    </div>
   </div>
 </body>
 </html>

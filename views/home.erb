@@ -1,10 +1,13 @@
-<p>Please insert the URL you want to shorten</p>
+<h2>Insert the URL you want to create a short URL for</h2>
 <form method="POST" action="/create">
-  <label>Original URL:
-    https://<input type="text" name="url[target]" id="target" />
-  </label><br />
-  <label>Slug for shortened URL (leave empty for random slug):
-    <input type="text" name="url[source]" id="source" />
-  </label><br />
-  <button id="send">Send</button>
+  <label>Original URL:</label>
+  <div class="input-box">
+    <span class="prefix">https://</span>
+    <input type="text" pattern="^[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$" name="url[target]" id="target" required="required" placeholder="yourdomain.com" />
+  </div> 
+  <label>Slug for shortened URL <span class="small-info inactive">(leave empty for random slug)</span>:</label>
+  <div class="input-box">
+    <input type="text" pattern="^[-a-z0-9]{4,128}$" name="url[source]" id="source"required="required"  placeholder="coolslug" />
+  </div>
+  <button class="input-box" id="send">Create short URL</button>
 </form>
