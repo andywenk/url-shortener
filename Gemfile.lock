@@ -13,8 +13,6 @@ GEM
       tzinfo (~> 2.0)
     base64 (0.1.1)
     concurrent-ruby (1.1.10)
-    daemons (1.4.1)
-    eventmachine (1.2.7)
     ffi (1.15.5)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
@@ -24,6 +22,9 @@ GEM
     minitest (5.16.3)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
+    passenger (6.0.15)
+      rack
+      rake (>= 0.8.1)
     rack (2.2.4)
     rack-protection (3.0.2)
       rack
@@ -44,10 +45,6 @@ GEM
       sinatra (>= 1.0)
     sqlite3 (1.5.3-arm64-darwin)
     sqlite3 (1.5.3-x86_64-linux)
-    thin (1.8.1)
-      daemons (~> 1.0, >= 1.0.9)
-      eventmachine (~> 1.0, >= 1.0.4)
-      rack (>= 1, < 3)
     tilt (2.0.11)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
@@ -59,6 +56,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (>= 4.1)
   base64
+  passenger
   rack
   rake
   rb-fsevent
@@ -66,7 +64,6 @@ DEPENDENCIES
   sinatra
   sinatra-activerecord
   sqlite3
-  thin
 
 BUNDLED WITH
    2.3.16
