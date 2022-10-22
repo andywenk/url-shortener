@@ -1,0 +1,10 @@
+<p>Please insert the URL you want to shorten</p>
+<form method="POST" action="/create-shorturl">
+  <label>Original URL:
+    https://<input type="text" name="url[original]" id="original-url" />
+  </label><br />
+  <label>Slug for shortened URL:
+    https://<input type="text" name="url[slug]" id="short-url-name" />
+  </label><br />
+  <button id="send">Send</button>
+</form>
