@@ -11,10 +11,6 @@ gem "rake"
 gem 'sinatra-activerecord'
 gem 'activerecord', '>= 4.1'
 gem "sqlite3"
-# gem "warden"
-# gem 'net-smtp', require: false
-# gem "actionmailer"
-gem "sinatra_more"
 
 group :development do
   gem "thin"
