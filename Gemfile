@@ -11,9 +11,9 @@ gem "rake"
 gem 'sinatra-activerecord'
 gem 'activerecord', '>= 4.1'
 gem "sqlite3"
+gem "passenger"
 
 group :development do
-  gem "thin"
   gem "rb-fsevent"
   gem "rerun"
 end
