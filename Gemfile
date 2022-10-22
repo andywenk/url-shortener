@@ -12,10 +12,14 @@ gem "rack"
 gem "rake"  
 gem 'sinatra-activerecord'
 gem 'activerecord', '>= 4.1'
-gem "sqlite3"
 gem "passenger"
 
+group :production do
+  gem "pg"
+end
+
 group :development do
+  gem "sqlite3"
   gem "rb-fsevent"
   gem "rerun"
 end
