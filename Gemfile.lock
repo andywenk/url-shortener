@@ -25,6 +25,7 @@ GEM
     passenger (6.0.15)
       rack
       rake (>= 0.8.1)
+    pg (1.4.4)
     rack (2.2.4)
     rack-protection (3.0.2)
       rack
@@ -57,6 +58,7 @@ DEPENDENCIES
   activerecord (>= 4.1)
   base64
   passenger
+  pg
   rack
   rake
   rb-fsevent
