@@ -1,0 +1,20 @@
+<p>All URLS</p>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>source</th>
+    <th>target</th>
+    <th>created</th>
+    <th>Action</th>
+  </tr>
+  <% @urls.each do |url| %>
+  <tr>
+    <td><%= url.id %></td>
+    <td><%= url.source %></td>
+    <td><%= url.target %></td>
+    <td><%= url.created_at %></td>
+    <td><a href="/url/<%= url.id %>/delete">Delete</a></td>
+  </tr>
+  <% end %>
+</table>
