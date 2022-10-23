@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # https://github.com/simonneutert/sinatras-skeleton
 
-class App < Sinatra::Application
+class App < Sinatra::Base
   use Warden::Manager do |config|
     config.serialize_into_session(&:id)
     config.serialize_from_session { |id| User.find(id) }
@@ -25,13 +25,15 @@ class App < Sinatra::Application
 
     def authenticate!
       user = User.find_by(username: params['user']['username'])
-
+      logger = Logger.new(STDOUT)
+      
       if user.nil?
-        throw(:warden, message: 'The username you entered does not exist.')
+        logger.debug('Username does not exist.')
       elsif user.authenticate(params['user']['password'])
+        logger.debug('User authenticated.')
         success!(user)
       else
-        throw(:warden, message: 'The username and password combination ')
+        logger.debug('Username and password combination is wrong!')
       end
     end
   end
