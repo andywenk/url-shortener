@@ -13,6 +13,8 @@ gem "rake"
 gem 'sinatra-activerecord'
 gem 'activerecord', '>= 4.1'
 gem "passenger"
+gem 'bcrypt'
+gem 'warden'
 
 group :production do
   gem "pg"
@@ -23,4 +25,5 @@ group :development do
   gem "sqlite3"
   gem "rb-fsevent"
   gem "rerun"
+  gem "racksh"
 end
