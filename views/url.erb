@@ -1,7 +1,7 @@
 <h2>Your short URL was created!</h2>
 <div class="list">
-  <span class="label">the target URL:</span> <%= @url.target %><br />
-  <span class="label">your short URL:</span> <span id="copy">krx.pw/<%= @url.source %></span><img class="copy" src="/images/copy.png" alt="copy URL" onclick="copy()" />
+  <span class="label">the target URL:</span> https://<%= @url.target %><br />
+  <span class="label">your short URL:</span> <span id="copy">https://krx.pw/<%= @url.source %></span>&nbsp;<img class="copy" src="/images/copy.png" title="copy URL" alt="copy URL" onclick="copy()" />
 </div>
 
 <script>

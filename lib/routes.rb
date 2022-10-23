@@ -1,9 +1,56 @@
 # frozen_string_literal: true
 
-class App < Sinatra::Application
+class App < Sinatra::Base
   get '/' do
     @title = "Home"
     erb :home
+  end
+
+  get '/privacy-policy' do
+    erb :'privacy-policy'
+  end
+
+  get '/disclaimer' do
+    erb :disclaimer
+  end
+
+  get '/toc' do
+    erb :toc
+  end
+
+  get '/auth/login' do
+    erb :"login"
+  end
+
+  post '/auth/login' do
+    env['warden'].authenticate!
+    
+    logger.debug(session)
+
+    if session[:return_to].nil?
+      redirect '/'
+    else
+      redirect session[:return_to]
+    end
+  end
+
+  get '/auth/logout' do
+    env['warden'].raw_session.inspect
+    env['warden'].logout
+    redirect '/'
+  end
+
+  post '/auth/unauthenticated' do
+    session[:return_to] = env['warden.options'][:attempted_path] if session[:return_to].nil?
+    redirect '/auth/login'
+  end
+
+  get '/users' do
+    session[:return_to] = '/users'
+    env['warden'].authenticate!
+    @title = "All Users's"
+    @users = User.all
+    erb :users
   end
 
   get '/url/:id' do
@@ -13,6 +60,7 @@ class App < Sinatra::Application
   end
 
   get '/urls' do 
+    session[:return_to] = '/urls'
     env['warden'].authenticate!
     @title = "All URL's"
     @urls = Url.all
@@ -20,8 +68,19 @@ class App < Sinatra::Application
   end
 
   post '/create' do
+    if params[:url][:source].empty?
+      slug = Slug.new
+      params[:url][:source] = slug.make
+    end
+
     url = Url.create(params[:url])
-    redirect to("/url/#{url.id}")
+    if url.valid?
+      flash[:notice] = 'Yay! Slug saved successfully!'
+      redirect to("/url/#{url.id}")
+    else 
+      flash[:error] = 'Sorry! This slug already exists!'
+      redirect to("/")
+    end
   end
 
   get '/:url' do
@@ -37,6 +96,7 @@ class App < Sinatra::Application
   end
 
   get '/url/:id/delete' do
+    env['warden'].authenticate!
     url = Url.find(params[:id])
     url.destroy
     redirect to("/urls")
@@ -59,35 +119,5 @@ class App < Sinatra::Application
       @user.save
     end
     redirect to("/users/#{@user.id}")
-  end
-
-  get '/auth/login' do
-    erb :"login"
-  end
-
-  post '/auth/login' do
-    env['warden'].authenticate!
-
-    # flash[:success] = 'Successfully logged in'
-
-    if session[:return_to].nil?
-      redirect '/'
-    else
-      redirect session[:return_to]
-    end
-  end
-
-  get '/auth/logout' do
-    env['warden'].raw_session.inspect
-    env['warden'].logout
-    # flash[:success] = 'Successfully logged out'
-    redirect '/'
-  end
-
-  post '/auth/unauthenticated' do
-    session[:return_to] = env['warden.options'][:attempted_path] if session[:return_to].nil?
-    # Set the error and use a fallback if the message is not defined
-    # flash[:error] = env['warden.options'][:message] || 'You must log in'
-    redirect '/auth/login'
   end
 end

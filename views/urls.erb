@@ -1,4 +1,4 @@
-<p>All URLS</p>
+<h2>All URLS</h2>
 
 <table>
   <tr>
@@ -11,10 +11,10 @@
   <% @urls.each do |url| %>
   <tr>
     <td><%= url.id %></td>
-    <td><%= url.source %></td>
-    <td><%= url.target %></td>
+    <td><a href="https://krx.pw/<%= url.source %>" target="_blank"><%= url.source %></a></td>
+    <td><a href="https://<%= url.target %>" target="_blank"><%= url.target %></a></td>
     <td><%= url.created_at %></td>
-    <td><a href="/url/<%= url.id %>/delete">Delete</a></td>
+    <td><a href="/url/<%= url.id %>/delete" onclick="confirm('Sure?')"><strong>Delete</strong></a></td>
   </tr>
   <% end %>
 </table>

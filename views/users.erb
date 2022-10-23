@@ -1,0 +1,18 @@
+<h2>All Users</h2>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>created</th>
+    <th>Action</th>
+  </tr>
+  <% @users.each do |user| %>
+  <tr>
+    <td><%= user.id %></td>
+    <td><%= user.username %></a></td>
+    <td><%= user.created_at %></td>
+    <td><a href="/user/<%= user.id %>/delete" onclick="confirm('Sure?')"><strong>Delete</strong></a></td>
+  </tr>
+  <% end %>
+</table>

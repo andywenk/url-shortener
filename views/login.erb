@@ -1,6 +1,12 @@
 <h2>Login</h2>
 <form method="post" action="/auth/login">
-    Username: <input type="text" name="user[username]"><br />
-    Password: <input type="password" name="user[password]"><br />
-    <button class="input-box" id="send">login</button>
+  <label>Username:</label>
+  <div class="input-box">
+    <input type="text" name="user[username]"><br />
+  </div>
+  <label>Password:</label>
+  <div class="input-box">
+    <input type="password" name="user[password]"><br />
+  </div>
+  <button class="input-box" id="send">login</button>
 </form>
