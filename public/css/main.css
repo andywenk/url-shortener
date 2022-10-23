@@ -1,5 +1,6 @@
 html, body, input, button {
   font-family: 'Courier New', monospace;
+  font-size: 1.1em;
   margin: 0;
   padding: 0;
 }
@@ -107,5 +108,18 @@ button.input-box {
 
 button.input-box:hover {
   background-color: #ddd;
+}
+
+div.list span.label {
+  display: inline-block;
+  font-weight: bold;
+  width: 190px;
+  line-height: 30px;
+}
+
+div.list img.copy {
+  height: 22px;
+  width: 22px;
+  cursor: pointer;
 }
 

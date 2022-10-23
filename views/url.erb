@@ -1,7 +1,12 @@
-<p>Url</p>
-<ul>
-  <li>
-    source: <%= @url.source %><br />
-    target: <%= @url.target %>
-  </li>
-</ul>
+<h2>Your short URL was created!</h2>
+<div class="list">
+  <span class="label">the target URL:</span> <%= @url.target %><br />
+  <span class="label">your short URL:</span> <span id="copy">krx.pw/<%= @url.source %></span><img class="copy" src="/images/copy.png" alt="copy URL" onclick="copy()" />
+</div>
+
+<script>
+  function copy() {
+    var copyText = document.getElementById("copy");
+    navigator.clipboard.writeText(copyText.textContent);
+  }
+</script>
