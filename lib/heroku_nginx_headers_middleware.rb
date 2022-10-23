@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Fixes up headers based on information given by the Heroku router.
 # by @honglilai
 class HerokuNginxHeadersMiddleware
