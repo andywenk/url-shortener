@@ -4,19 +4,18 @@ ruby "3.1.2"
 
 source "https://rubygems.org"
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
-
 gem "sinatra"
-gem "base64"
-gem "rack"
-gem "rake"  
+gem "sinatra-contrib"
+gem 'sinatra-flash'
 gem 'sinatra-activerecord'
 gem 'activerecord', '>= 4.1'
-gem "passenger"
+gem "rack"
+gem "rake"  
 gem 'bcrypt'
 gem 'warden'
 
 group :production do
+  gem "passenger"
   gem "pg"
 end
 
@@ -25,5 +24,5 @@ group :development do
   gem "sqlite3"
   gem "rb-fsevent"
   gem "rerun"
-  gem "racksh"
+  gem "racksh"                # https://github.com/sickill/racksh
 end
