@@ -59,6 +59,12 @@ class App < Sinatra::Base
     erb :url
   end
 
+  post '/url/:id' do
+    @title = "URL for #{params[:id]}"
+    @url = Url.find(params[:id])
+    erb :url
+  end
+
   get '/urls' do 
     session[:return_to] = '/urls'
     env['warden'].authenticate!
