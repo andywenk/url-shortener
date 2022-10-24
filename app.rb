@@ -36,9 +36,9 @@ class App < Sinatra::Base
   set :max_age, "1728000"
   set :expose_headers, ['Content-Type']
 
-  # before do
-  #   response.headers['Access-Control-Allow-Origin'] = '*'
-  # end
+  before do
+    response.headers['Access-Control-Allow-Origin'] = '*'
+  end
 
   options "*" do
     response.headers["Allow"] = "HEAD,GET,PUT,POST,DELETE,OPTIONS"

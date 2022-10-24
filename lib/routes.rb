@@ -82,7 +82,7 @@ class App < Sinatra::Base
     url = Url.create(params[:url])
     if url.valid?
       flash[:notice] = 'Yay! Slug saved successfully!'
-      redirect "https://www.krx.pw/url/#{url.id}"
+      redirect "/url/#{url.id}"
     else 
       flash[:error] = 'Sorry! This slug already exists!'
       redirect "/"
