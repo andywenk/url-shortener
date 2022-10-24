@@ -8,16 +8,12 @@ gem "sinatra"
 gem "sinatra-contrib"
 gem 'sinatra-flash'
 gem 'sinatra-activerecord'
+gem 'sinatra-cross_origin'
 gem 'activerecord', '>= 4.1'
 gem "rack"
 gem "rake"  
 gem 'bcrypt'
 gem 'warden'
-
-group :production do
-  gem "passenger"
-  gem "pg"
-end
 
 group :development do
   gem "thin"
@@ -25,4 +21,9 @@ group :development do
   gem "rb-fsevent"
   gem "rerun"
   gem "racksh"                # https://github.com/sickill/racksh
+end
+
+group :production do
+  gem "passenger"
+  gem "pg"
 end
