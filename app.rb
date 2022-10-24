@@ -35,9 +35,12 @@ class App < Sinatra::Base
   set :allow_credentials, true
   set :max_age, "1728000"
   set :expose_headers, ['Content-Type']
+  set :connection, 'close'
 
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Connection'] = 'close'
+
   end
 
   options "*" do
@@ -66,6 +69,13 @@ class App < Sinatra::Base
     logger = Logger.new(STDOUT)
     logger.level = Logger::DEBUG
     set :logger, logger
+
+    ::Logger.class_eval { alias :write :'<<' }
+    access_logger = ::Logger.new(STDOUT)
+
+    configure do
+      use ::Rack::CommonLogger, access_logger
+    end
   end
 
   use Rack::Protection
