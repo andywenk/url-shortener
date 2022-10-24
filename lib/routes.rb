@@ -80,12 +80,16 @@ class App < Sinatra::Base
     end
 
     url = Url.create(params[:url])
+    
     if url.valid?
       flash[:notice] = 'Yay! Slug saved successfully!'
-      response.headers['Connection'] = 'close'
+      headers['Connection'] = 'close'
+      headers['Create'] = 'ok'
       redirect "/url/#{url.id}"
     else 
       flash[:error] = 'Sorry! This slug already exists!'
+      headers['Connection'] = 'close'
+      headers['Create'] = 'allready taken'
       redirect "/"
     end
   end

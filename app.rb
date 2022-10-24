@@ -30,13 +30,6 @@ class App < Sinatra::Base
     enable :cross_origin
   end
   
-  set :allow_origin, :any
-  set :allow_methods, [:get, :post, :put, :delete, :options]
-  set :allow_credentials, true
-  set :max_age, "1728000"
-  set :expose_headers, ['Content-Type']
-  set :connection, 'close'
-
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Connection'] = 'close'
