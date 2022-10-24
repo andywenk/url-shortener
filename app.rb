@@ -30,13 +30,19 @@ class App < Sinatra::Base
     enable :cross_origin
   end
   
-  before do
-    response.headers['Access-Control-Allow-Origin'] = '*'
-  end
+  set :allow_origin, :any
+  set :allow_methods, [:get, :post, :put, :delete, :options]
+  set :allow_credentials, true
+  set :max_age, "1728000"
+  set :expose_headers, ['Content-Type']
+
+  # before do
+  #   response.headers['Access-Control-Allow-Origin'] = '*'
+  # end
 
   options "*" do
-    response.headers["Allow"] = "GET, PUT, POST, DELETE, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+    response.headers["Allow"] = "HEAD,GET,PUT,POST,DELETE,OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept, Authorization, X-User-Email, X-Auth-Token"
     response.headers["Access-Control-Allow-Origin"] = "*"
     200
   end
