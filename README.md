@@ -134,3 +134,32 @@ Then connect to the the production database with `psql`:
     ENCRYPTED_PASSWORD_STRING
     (1 row)
 
+### Important Heroku CLI commands
+
+**See all CLI commands**
+
+	~ heroku commands
+
+**Inspect the logs continuously**
+
+	~ heroku logs --tail
+	
+**Restart the application**
+
+	~ heroku restart
+	
+**Run the console on the machine**
+
+	~ heroku run bash
+	
+**Check if the certificates are issued**
+
+	~ heroku certs:auto
+	
+**Run rake tasks**
+
+	~ heroku run rake [RAKE_TASK]
+	
+**See how the domains are set up**
+
+	~ heroku domains
