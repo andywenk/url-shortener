@@ -82,10 +82,12 @@ class App < Sinatra::Base
     url = Url.create(params[:url])
     if url.valid?
       flash[:notice] = 'Yay! Slug saved successfully!'
-      redirect to("/url/#{url.id}")
+      status 303
+      redirect "/url/#{url.id}"
     else 
       flash[:error] = 'Sorry! This slug already exists!'
-      redirect to("/")
+      status 303
+      redirect "/"
     end
   end
 
@@ -105,7 +107,7 @@ class App < Sinatra::Base
     env['warden'].authenticate!
     url = Url.find(params[:id])
     url.destroy
-    redirect to("/urls")
+    redirect "/urls"
   end
 
   get '/users/:id' do
