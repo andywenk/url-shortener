@@ -40,7 +40,6 @@ class App < Sinatra::Base
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Connection'] = 'close'
-
   end
 
   options "*" do
