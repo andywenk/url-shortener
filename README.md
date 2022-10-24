@@ -163,3 +163,9 @@ Then connect to the the production database with `psql`:
 **See how the domains are set up**
 
 	~ heroku domains
+
+## curl
+
+Here is an example how to post the data via curl:
+
+    ~ curl -v -s -X POST -F "url[target]=www.andy.de" -F "url[source]=harry" https://www.krx.pw/create 1> /dev/null
