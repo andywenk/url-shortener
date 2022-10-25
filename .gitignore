@@ -64,4 +64,5 @@ db/development.sqlite3
 /log/*.log
 
 API.md
+notes.md
 
