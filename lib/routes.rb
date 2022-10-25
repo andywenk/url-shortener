@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
+require 'uri'
+require 'net/http'
+
 class App < Sinatra::Base
   before do
     @logged_in = env['warden'].authenticated?
   end
-  
+
   get '/' do
     @title = "Home"
     erb :home
@@ -31,8 +34,19 @@ class App < Sinatra::Base
   end
 
   post '/auth/login' do
-    env['warden'].authenticate!
-    redirect '/urls'
+    turnstile = Turnstile.new({
+      cf_response: params['cf-turnstile-response'],
+      cf_ip: request.env["CF-Connecting-IP"]
+    })
+    
+    if turnstile.check
+      env['warden'].authenticate!
+      flash[:notice] = 'Yay! Logged in!'
+      redirect '/urls'
+    else 
+      flash[:error] = 'Are you a robot?'
+      redirect '/'
+    end
   end
 
   get '/auth/logout' do
