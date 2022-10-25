@@ -25,8 +25,6 @@ You can visit the [KRX website](https://krx.pw) to see the application as a demo
 * create a random short URL with your domain
 * login as an admin and delete short-urls
 
-## 
-
 ## local development
 
 ### Ruby
@@ -81,6 +79,10 @@ Locally sqlite3 will be used. Check out the configuration in `config/database.ym
     
 ## Heroku
 
+### Getting started with Ruby
+
+This is a good overview on how to get started with a [Ruby application on Heroku](https://devcenter.heroku.com/articles/getting-started-with-ruby).
+
 ### CLI
 
 Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and install it. After that make your self familiar with the [CLI](https://devcenter.heroku.com/articles/heroku-cli#get-started-with-the-heroku-cli). If you don't want to [RTFM](https://en.wiktionary.org/wiki/RTFM) fire:
@@ -107,13 +109,13 @@ You can for sure also use another git repository and deploy from there.
 
 https://devcenter.heroku.com/articles/managing-heroku-postgres-using-cli
 
-#### Prerequisites
+### Prerequisites
 
 PostgreSQL has to be installed on your local machine. And the `psql` program has to be in `PATH`. Configure then:
 
     ~ export DATABASE_URL=postgres://$(whoami)
 
-#### user
+### user
 
 You need to create at least one user to be able to login (`/auth/login`). 
 
@@ -133,6 +135,36 @@ Then connect to the the production database with `psql`:
     --------------------------------------------------------------
     ENCRYPTED_PASSWORD_STRING
     (1 row)
+
+### Addons
+
+You can see the addons you installed with this command:
+
+    ~ heroku addons
+
+If you follow tthis README you will see at least `heroku-postgresql`. I suggest to also provision the [papertrail](https://devcenter.heroku.com/articles/papertrail) addon for better logging.
+
+    ~ heroku addons:create papertrail
+
+Start it with:
+
+    ~ heroku addons:open papertrail
+
+There is also a plugin for yopur local console:
+
+    ~ heroku plugins:install heroku-papertrail
+
+You can run it with
+
+    ~ heroku pt
+
+but I personally favour this:
+
+    ~ heroku logs --tail
+
+The shortlink to the papertrail web ui is simply this:
+
+    https://addons-sso.heroku.com/apps/<YOUR_HEROKU_APP_NAME/addons/papertrail
 
 ### Important Heroku CLI commands
 
@@ -169,3 +201,7 @@ Then connect to the the production database with `psql`:
 Here is an example how to post the data via curl:
 
     ~ curl -v -s -X POST -F "url[target]=www.andy.de" -F "url[source]=harry" https://www.krx.pw/create 1> /dev/null
+
+## DNS fuckup
+
+The domain krx.pw is registered at Godaddy. I started to use Godaddy but I completely failed. 
