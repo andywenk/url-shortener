@@ -76,7 +76,10 @@ Locally sqlite3 will be used. Check out the configuration in `config/database.ym
 **Run the script created in the bin directory.**
 
     ~ ./bin/run
-    
+
+## Sinatra
+
+Sinatra is a Rack based small web-framework you want to use, when Ruby on Rails is too heavy. A basic overview can be found here: [https://sinatrarb.com/intro#The%20Bleeding%20Edge](https://sinatrarb.com/intro#The%20Bleeding%20Edge)
 ## Heroku
 
 ### Getting started with Ruby
@@ -95,7 +98,6 @@ Download the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli) and 
 	
 	USAGE
 	  $ heroku [COMMAND]
-
 
 ### deployment
 
@@ -202,6 +204,23 @@ Here is an example how to post the data via curl:
 
     ~ curl -v -s -X POST -F "url[target]=www.andy.de" -F "url[source]=harry" https://www.krx.pw/create 1> /dev/null
 
-## DNS fuckup
+## DNS
 
-The domain krx.pw is registered at Godaddy. I started to use Godaddy but I completely failed. 
+### Fuckup experience
+
+The domain krx.pw is registered at [Godaddy](https://www.godaddy.com/). I started to use [Cloudflare](https://www.cloudflare.com/) but I completely failed. THe problem is this:
+
+* Godaddy has it's own NS Servers. 
+* Heroku is providing SSL certificates (letsencrypt) for all paied plans.  
+* Heroku is basically working together with Godaddy but there is a problem, when you want to use the domain `krx.pw` and `www.krx.pw`. It simply will not work correctly even though you redirect.
+
+So digging deep in the web I found some solutions but they did not suffice. So the proposal was to use Cloudflare. And that failed also.
+
+When setting up the NS domains from Heroku in CLoudflare for both `krx.pw` and `www.krx.pw` the domains were reachable. Good. But when using POST, the application returned the HTTP status code `403` what means `forbidden`. After one day of digging and debugging I realised, that Cloudflare is using HTTP/2. There, you cannot set the `Connection close` header - what I tried. When using curl there is no problem at all. Up and down, down and up I finally decided, that it is simply not working. 
+
+Then I went back to Godaddy. But I was again not able to get the `krx.pw` domain working. Only `www.krx.pw`. 
+
+The next suggestion was to use [Namecheap](https://www.namecheap.com/). DNS is also free (as with Cloudflare) and there I am now. The domains are both working but now I  am facing an issue with the SSL certificates provided by Heroku. Meh!
+
+I can't understand why this is so hard. It should be way more simple and I am just a blink away to rent a root server box and do everything by myself. 
+

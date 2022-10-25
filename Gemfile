@@ -3,8 +3,10 @@
 ruby "3.1.2"
 
 source "https://rubygems.org"
+git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
-gem "sinatra"
+# gem "sinatra"
+gem 'sinatra', :github => 'sinatra/sinatra'
 gem "sinatra-contrib"
 gem 'sinatra-flash'
 gem 'sinatra-activerecord'

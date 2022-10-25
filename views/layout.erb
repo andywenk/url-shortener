@@ -27,6 +27,13 @@
           <%= flash[:notice] %>
         </div>
       <% end %>
+      <div class="menu">
+        <% if @logged_in %>
+          <a href="/auth/logout">logout</a> | <a href="/urls">urls</a> | <a href="/users">users</a>
+        <% else %>
+          <a href="/auth/login">login</a>
+        <% end %>
+      </div>
     </div>
     <div class="left">
       <h3>URL</h3>
@@ -49,5 +56,15 @@
       <a href="/toc">Terms & Conditions</a>
     </div>
   </div>
+  
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=_turnstileCb" async defer></script>
+  <script>
+    function _turnstileCb() {
+        turnstile.render('#trunstile-widget', {
+          sitekey: '0x4AAAAAAAA_wULpOJ-nsxmd',
+          theme: 'light',
+        });
+    }
+  </script>
 </body>
 </html>

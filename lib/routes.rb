@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class App < Sinatra::Base
+  before do
+    @logged_in = env['warden'].authenticated?
+  end
+  
   get '/' do
     @title = "Home"
     erb :home
@@ -19,19 +23,16 @@ class App < Sinatra::Base
   end
 
   get '/auth/login' do
-    erb :"login"
+    if env['warden'].authenticated?
+      redirect '/urls'
+    else 
+      erb :"login"
+    end
   end
 
   post '/auth/login' do
     env['warden'].authenticate!
-    
-    logger.debug(session)
-
-    if session[:return_to].nil?
-      redirect '/'
-    else
-      redirect session[:return_to]
-    end
+    redirect '/urls'
   end
 
   get '/auth/logout' do
@@ -83,13 +84,9 @@ class App < Sinatra::Base
     
     if url.valid?
       flash[:notice] = 'Yay! Slug saved successfully!'
-      headers['Connection'] = 'close'
-      headers['Create'] = 'ok'
       redirect "/url/#{url.id}"
     else 
       flash[:error] = 'Sorry! This slug already exists!'
-      headers['Connection'] = 'close'
-      headers['Create'] = 'allready taken'
       redirect "/"
     end
   end

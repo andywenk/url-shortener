@@ -28,11 +28,11 @@ class App < Sinatra::Base
 
   configure do
     enable :cross_origin
+    enable :logging
   end
   
   before do
     response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Connection'] = 'close'
   end
 
   options "*" do
@@ -69,7 +69,7 @@ class App < Sinatra::Base
       use ::Rack::CommonLogger, access_logger
     end
   end
-
+  
   use Rack::Protection
 end
 
