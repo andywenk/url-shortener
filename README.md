@@ -71,6 +71,52 @@ Locally sqlite3 will be used. Check out the configuration in `config/database.ym
 
     ~ rake db:setup
 
+#### admin user
+
+You need to create at least one user to be able to login (`/auth/login`). 
+
+Create a new user in database. First create a bcrypt password locally:
+
+    ~ bundle exec racksh
+    >> BCrypt::Password.create('SUPER_SECRET_PASSWORD')
+    => 'ENCRYPTED_PASSWORD_STRING'
+
+Then put the data into the database. If you are using e.g. PostgreSQL it is done like this:
+	
+	~ psql
+	INSERT INTO users (created_at,updated_at, username, password) VALUES ('DATE_TIME','DATE_TIME','USERNAME', 	'ENCRYPTED_PASSWORD_STRING');
+    INSERT 0 1
+    url-shortener-slug::DATABASE=> select password from users where username='USERNAME';
+                              password
+    --------------------------------------------------------------
+    ENCRYPTED_PASSWORD_STRING
+    (1 row)
+
+Remember to do this also in the production database after you deployed for the first time. You need to find the *external connection data* for the database. 
+
+* In the render Dashboard click the database (e.g. postgresql-transparent-1234)
+* click the *connect* drop down on the top right side
+* choose the tab *External Connection*
+* copy the psql string under *PSQL Command - Connect from the command line.*
+* past it into the command line
+
+The result will be sth like this:
+
+	➜  url-shortener-git git:(main) PGPASSWORD=SuperSecretPassword psql -h dpg-somesubdomain.someregion-postgres.render.com -U postgresql_transparent_1234_user postgresql_transparent_1234
+	psql (15.0 (Homebrew), server 14.5)
+	SSL connection (protocol: TLSv1.3, cipher: TLS_AES_128_GCM_SHA256, compression: off)
+	Type "help" for help.
+	
+	postgresql_transparent_1234=> \dt
+	                             List of relations
+	 Schema |         Name         | Type  |               Owner
+	--------+----------------------+-------+-----------------------------------
+	 public | ar_internal_metadata | table | postgresql_transparent_22708_user
+	 public | schema_migrations    | table | postgresql_transparent_22708_user
+	 public | urls                 | table | postgresql_transparent_22708_user
+	 public | users                | table | postgresql_transparent_22708_user
+	(4 rows)
+
 ### Run the application
 
 **Run the script created in the bin directory.**
@@ -80,6 +126,30 @@ Locally sqlite3 will be used. Check out the configuration in `config/database.ym
 ## Sinatra
 
 Sinatra is a Rack based small web-framework you want to use, when Ruby on Rails is too heavy. A basic overview can be found here: [https://sinatrarb.com/intro#The%20Bleeding%20Edge](https://sinatrarb.com/intro#The%20Bleeding%20Edge)
+
+## Hosting
+
+After the horrible failures with Heroku, I decided to try and go with [render](https://render.com). It just took me 1 hour to get my application running with both URL's krx.pw and www.krx.pw. I strongly propose to go with this really easy service. Follow these steps:
+
+* create a [GitHub](https://github.com) or [GitLab](https://gitlab.com) repository and push the code of your application
+* create an [render](https://render.com) account
+* set up everything at render by following the instructions described at teh [render docs](https://render.com/docs). Belive me - it is really easy!
+* set up a database at render
+* deploy the first time
+* set up custom domains at render
+* set up the DNS settings like described [here](https://render.com/docs/custom-domains). Make sure to use [Cloudflare](https://render.com/docs/configure-cloudflare-dns) or [Namecheap](https://render.com/docs/configure-namecheap-dns). These services are easy to set up and they offer free plans
+* check if everything works
+
+## deployment
+
+The deployment at render is automagically started when you push the branch to Github.
+
+	~ git push
+
+
+###~~~~BELOW THIS LINE READ THE FAILED ATTEMPT WITH HEROKU~~~
+
+
 ## Heroku
 
 ### Getting started with Ruby
