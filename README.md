@@ -82,7 +82,7 @@ Create a new user in database. First create a bcrypt password locally:
     => 'ENCRYPTED_PASSWORD_STRING'
 
 Then put the data into the database. If you are using e.g. PostgreSQL it is done like this:
-
+	
 	~ psql
 	INSERT INTO users (created_at,updated_at, username, password) VALUES ('DATE_TIME','DATE_TIME','USERNAME', 	'ENCRYPTED_PASSWORD_STRING');
     INSERT 0 1
@@ -106,15 +106,15 @@ The result will be sth like this:
 	psql (15.0 (Homebrew), server 14.5)
 	SSL connection (protocol: TLSv1.3, cipher: TLS_AES_128_GCM_SHA256, compression: off)
 	Type "help" for help.
-
+	
 	postgresql_transparent_1234=> \dt
 	                             List of relations
 	 Schema |         Name         | Type  |               Owner
 	--------+----------------------+-------+-----------------------------------
-	 public | ar_internal_metadata | table | postgresql_transparent_22708_user
-	 public | schema_migrations    | table | postgresql_transparent_22708_user
-	 public | urls                 | table | postgresql_transparent_22708_user
-	 public | users                | table | postgresql_transparent_22708_user
+	 public | ar_internal_metadata | table | postgresql_transparent_1234_user
+	 public | schema_migrations    | table | postgresql_transparent_1234_user
+	 public | urls                 | table | postgresql_transparent_1234_user
+	 public | users                | table | postgresql_transparent_1234_user
 	(4 rows)
 
 ### Run the application
