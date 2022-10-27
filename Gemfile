@@ -18,6 +18,8 @@ gem 'bcrypt'
 gem 'warden'
 
 group :development do
+  gem "pry"
+  gem "pry-remote"
   gem "thin"
   gem "sqlite3"
   gem "rb-fsevent"

@@ -1,0 +1,1 @@
+web: bundle exec rerun -- thin start --port 4448 -R config.ru

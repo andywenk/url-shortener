@@ -38,8 +38,8 @@ class App < Sinatra::Base
       cf_response: params['cf-turnstile-response'],
       cf_ip: request.env["CF-Connecting-IP"]
     })
-    
-    if turnstile.check
+
+    if turnstile.check || ENV['RACK_ENV'] == 'development'
       env['warden'].authenticate!
       flash[:notice] = 'Yay! Logged in!'
       redirect '/urls'
