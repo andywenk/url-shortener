@@ -13,6 +13,11 @@ test:
 
 production:
   adapter: postgresql
-  database: url_shortener
+  database: ENV['DB_NAME]
+  username: ENV['DB_USERNAME]
+  password: ENV['DB_PASSWORD']
+  port: 5432
   pool: 5
   timeout: 5000
+
+
