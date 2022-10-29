@@ -16,6 +16,12 @@ gem "rack"
 gem "rake"  
 gem 'bcrypt'
 gem 'warden'
+gem "capistrano"
+gem "capistrano-bundler"
+gem "capistrano-passenger"
+gem "capistrano-rbenv"
+gem "ed25519"
+gem "bcrypt_pbkdf"
 
 group :development do
   gem "pry"

@@ -68,3 +68,5 @@ notes.md
 
 passenger.*.pid.lock
 latest.dump
+
+/config/secrets.yml
